@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jawhara Jewellery | جوهرة للمجوهرات</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark-bg: #121212;
+            --text-light: #f4f4f4;
+        }
+        body { margin: 0; font-family: 'Times New Roman', serif; background-color: #fcfcfc; }
+        
+        /* Header */
+        header { 
+            background: var(--dark-bg); 
+            color: var(--gold); 
+            padding: 30px; 
+            text-align: center; 
+            letter-spacing: 3px;
+        }
+        header h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; }
+        header p { color: #fff; font-size: 0.9rem; opacity: 0.8; }
+
+        /* شاشة الأسعار المباشرة */
+        .live-ticker {
+            background: #1e1e1e;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            border-bottom: 2px solid var(--gold);
+        }
+        .price-box {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--gold);
+            min-width: 120px;
+            text-align: center;
+        }
+        .price-box span { display: block; }
+        .label { font-size: 0.7rem; color: var(--gold); }
+        .value { font-size: 1.1rem; font-weight: bold; }
+
+        .update-flash { animation: flash 1s; }
+        @keyframes flash {
+            0% { background: rgba(212, 175, 55, 0.5); }
+            100% { background: rgba(212, 175, 55, 0.1); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Jawhara Jewellery</h1>
+    <p>نصيغُ الفخامة.. لنبرز بريقكِ</p>
+</header>
+
+<div class="live-ticker">
+    <div class="price-box" id="box24">
+        <span class="label">عيار 24</span>
+        <span class="value" id="k24">--.--</span>
+    </div>
+    <div class="price-box" id="box22">
+        <span class="label">عيار 22</span>
+        <span class="value" id="k22">--.--</span>
+    </div>
+    <div class="price-box" id="box21">
+        <span class="label">عيار 21</span>
+        <span class="value" id="k21">--.--</span>
+    </div>
+    <div class="price-box" id="box18">
+        <span class="label">عيار 18</span>
+        <span class="value" id="k18">--.--</span>
+    </div>
+</div>
+
+<script>
+    function updatePrices() {
+        // محاكاة سعر الذهب (يمكنك ربطه بـ API لاحقاً)
+        const basePrice = 25.450; // سعر افتراضي بالدينار
+        const prices = {
+            k24: (basePrice).toFixed(3),
+            k22: (basePrice * 0.916).toFixed(3),
+            k21: (basePrice * 0.875).toFixed(3),
+            k18: (basePrice * 0.750).toFixed(3)
+        };
+
+        for (let key in prices) {
+            const el = document.getElementById(key);
+            el.innerText = prices[key] + " د.ك";
+            // إضافة تأثير بصري عند التحديث
+            el.parentElement.classList.add('update-flash');
+            setTimeout(() => el.parentElement.classList.remove('update-flash'), 1000);
+        }
+    }
+
+    // التحديث كل 10 ثواني
+    setInterval(updatePrices, 10000);
+    updatePrices(); // أول تحديث عند التحميل
+</script>
+
+</body>
+</html>
